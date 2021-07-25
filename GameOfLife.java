@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -61,7 +62,8 @@ public class GameOfLife extends Application {
         mainPane.setBottom(infoBox);
 
         Scene scene = new Scene(mainPane, size, size);
-        primaryStage.setTitle("Life");
+        primaryStage.setTitle("The Game of Life");
+        primaryStage.getIcons().add(new Image("icon.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
