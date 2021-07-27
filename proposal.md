@@ -11,7 +11,7 @@ Time permitting, users will be able to save/load game states/configurations.
 
 Data Structures:  
     Linked List- to store configs  
-    Priority Queue- to order most frequently used configs  
+    HashMap- to map the configs to the correct layout  
     Binary Search Tree- to search preloaded configs  
 Algorithm: Tree Traversal (such as postorder traversal), will be used as part of search  
 Sorting: configs can also be sorted alphabetically using quick sort  

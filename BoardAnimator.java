@@ -10,7 +10,7 @@ public class BoardAnimator implements Runnable {
     private Rectangle[][] cells;
     private boolean stopped = true;
 
-    public static final int length = 10;
+    public static final int pixel_length = 10;
 
     public BoardAnimator(Board board, Pane pane) {
         this.board = board;
@@ -19,23 +19,23 @@ public class BoardAnimator implements Runnable {
         int x = 0, y = 0;
         for (int r = 0; r < board.getSize(); r++) {
             for (int c = 0; c < board.getSize(); c++) {
-                Rectangle cell = new Rectangle(x + (c*length), y, length, length);
+                Rectangle cell = new Rectangle(x + (c* pixel_length), y, pixel_length, pixel_length);
                 cell.setFill(Color.BLACK);
-                //cell.setStroke(Color.GRAY); ///////
+                cell.setStroke(Color.GRAY);
                 cells[r][c] = cell;
 
                 int cellRow = r, cellCol = c;
                 cell.setOnMouseClicked(e -> {
-                    //System.out.println(cell.getY()/length + " " + cell.getX()/length); //another way
-                    System.out.println(cellCol + " " + cellRow);
-
-                    if (cell.getFill() == Color.BLACK) {cell.setFill(Color.WHITE);}
-                    else {cell.setFill(Color.BLACK);}
+                    if (cell.getFill() == Color.BLACK) {
+                        cell.setFill(Color.WHITE);
+                    } else {
+                        cell.setFill(Color.BLACK);
+                    }
                     board.setValue(cellRow, cellCol, !board.getValue(cellRow, cellCol));
                 });
                 pane.getChildren().add(cell);
             }
-            y += length;
+            y += pixel_length;
         }
     }
 

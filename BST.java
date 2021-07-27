@@ -1,52 +1,52 @@
-public class BST {
+public class BST<T extends Comparable<T>> {
 
     public BSTNode root;
 
-    public void insert(int value) {
+    public void insert(T value) {
         root = insertHelper(value, root);
     }
 
-    private BSTNode insertHelper(int value, BSTNode curr) {
+    private BSTNode insertHelper(T value, BSTNode curr) {
         if (curr == null) {
             return new BSTNode(value);
         }
-        if (value < curr.value) {
+        if (value.compareTo(curr.value) < 0) {
             curr.left = insertHelper(value, curr.left);
-        } else if (value > curr.value) {
+        } else if (value.compareTo(curr.value) > 0) {
             curr.right = insertHelper(value, curr.right);
         }
         return curr;
     }
 
-    public BSTNode find(int value) {
+    public BSTNode find(T value) {
         return findHelper(value, root);
     }
 
-    private BSTNode findHelper(int value, BSTNode curr) {
+    private BSTNode findHelper(T value, BSTNode curr) {
         if (curr == null) {
             return null;
         }
-        if (value == curr.value) {
+        if (value.compareTo(curr.value) == 0) {
             return curr;
-        } else if (value < curr.value) {
+        } else if (value.compareTo(curr.value) < 0) {
             return findHelper(value, curr.left);
         } else {
             return findHelper(value, curr.right);
         }
     }
 
-    public void delete(int value) {
+    public void delete(T value) {
         root = deleteHelper(value, root);
     }
 
-    private BSTNode deleteHelper(int value, BSTNode curr) {
+    private BSTNode deleteHelper(T value, BSTNode curr) {
         if (curr == null) {
             return null;
         }
 
-        if (value < curr.value) {
+        if (value.compareTo(curr.value) < 0) {
             curr.left = deleteHelper(value, curr.left);
-        } else if (value > curr.value) {
+        } else if (value.compareTo(curr.value) > 0) {
             curr.right = deleteHelper(value, curr.right);
         } else {
             if (curr.left == null && curr.right == null) {
@@ -89,12 +89,12 @@ public class BST {
         return Math.max(left+1, right+1);
     }
 
-    static class BSTNode {
+    class BSTNode {
         public BSTNode left;
         public BSTNode right;
-        public int value;
+        public T value;
 
-        public BSTNode(int value) {
+        public BSTNode(T value) {
             this.value = value;
         }
     }

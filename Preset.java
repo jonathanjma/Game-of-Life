@@ -13,6 +13,124 @@ public class Preset {
         return cells;
     }
 
+    public static ArrayList<int[]> twoEngineCordership(int stX, int stY, int rotateCode) {
+        Preset.x = stX; Preset.y = stY; Preset.rotateCode = rotateCode;
+        cells = new ArrayList<>();
+
+        addCell(0, 0);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(2, -1);
+        addCell(1, 0);
+        addCell(0, 1);
+        addCell(-1, 0);
+
+        addCell(-1, 2);
+        addCell(-1, 1);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(1, 0);
+        addCell(1, 0);
+        addCell(0, 1);
+
+        addCell(12, 1);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(1, 0);
+
+        addCell(2, 7);
+        addCell(0, 1);
+        addCell(-1, 0);
+        addCell(-1, 1);
+        addCell(1, 1);
+        addCell(1, 0);
+        addCell(2, -1);
+        addCell(1, 1);
+        addCell(1, 1);
+        addCell(-1, 1);
+        addCell(-1, 1);
+        addCell(-1, -1);
+        addCell(1, 1);
+        addCell(0, 1);
+        addCell(0, 1);
+        addCell(1, -1);
+        addCell(0, 1);
+
+        addCell(-2, 4);
+        addCell(-1, 1);
+        addCell(0, 1);
+        addCell(1, 0);
+        addCell(1, 1);
+        addCell(1, 1);
+        addCell(0, 1);
+        addCell(-1, -1);
+        addCell(0, 1);
+        addCell(-1, -1);
+        addCell(0, 1);
+
+        addCell(-11, -4);
+        addCell(0, 1);
+        addCell(-1, 1);
+        addCell(-1, 0);
+        addCell(0, -1);
+        addCell(-1, 0);
+        addCell(-1, 0);
+        addCell(0, -1);
+        addCell(0, -1);
+        addCell(2, -1);
+        addCell(0, 1);
+        addCell(1, 0);
+
+        addCell(-9, 0);
+        addCell(-1, 0);
+        addCell(-1, 0);
+        addCell(-1, 0);
+        addCell(0, -1);
+        addCell(-1, 1);
+        addCell(-1, 1);
+        addCell(1, 1);
+        addCell(1, 0);
+        addCell(0, 1);
+        addCell(1, 0);
+        addCell(1, 1);
+
+        addCell(-15, 0);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(1, 0);
+
+        addCell(7, 7);
+        addCell(1, 0);
+        addCell(-1, 1);
+        addCell(1, 0);
+
+        addCell(10, 1);
+        addCell(1, 0);
+        addCell(1, -1);
+        addCell(1, 0);
+        addCell(1, 1);
+        addCell(1, 1);
+        addCell(0, 1);
+        addCell(-1, 1);
+        addCell(-1, 0);
+        addCell(0, 1);
+        addCell(-1, 0);
+        addCell(-1, 0);
+        addCell(-1, -1);
+        addCell(-1, -1);
+
+        addCell(10, -1);
+        addCell(0, 1);
+        addCell(-1, 1);
+        addCell(2, 0);
+        addCell(-1, 1);
+        addCell(0, 1);
+
+        return cells;
+    }
+
     public static ArrayList<int[]> snark(int stX, int stY, int rotateCode) {
         Preset.x = stX; Preset.y = stY; Preset.rotateCode = rotateCode;
         cells = new ArrayList<>();
