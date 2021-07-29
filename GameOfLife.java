@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -35,7 +36,21 @@ public class GameOfLife extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        presets = new LinkedList<>(Arrays.asList("Gosper Glider Gun", "R-Pentomino", "Basic Life", "Gliders", "Acorn", "Spider", "Copperhead", "Tanner P46", "Simkin Glider Gun", "Snark", "2 Engine Cordership"));
+        presets = new LinkedList<>(Arrays.asList("Gosper Glider Gun", "R-Pentomino", "Basic Life", "Gliders- Life", "Acorn- Basic", "Spider- Glider", "Copperhead- Glider", "Tanner P46", "Simkin Glider Gun", "Snark", "Two Engine Cordership"));
+
+        // insertion sort
+        for (int i = 1; i < presets.size(); i++) {
+            String curString = presets.get(i);
+            for (int j = i-1; j >= 0; j--) {
+                String jString = presets.get(j);
+                if ((j == 0 || curString.compareTo(presets.get(j-1)) > 0) && curString.compareTo(jString) < 0) {
+                    presets.remove(i);
+                    presets.add(j, curString);
+                    break;
+                }
+            }
+        }
+
         bst = new BST<>();
         for (String str : presets) {
             bst.insert(str);
@@ -103,10 +118,43 @@ public class GameOfLife extends Application {
             startGame(selected_val);
         });
 
-        column.getChildren().addAll(img, title, instructions, playground, or, preset, presetsList);
+        TextField searchInput = new TextField();
+        searchInput.setPromptText("Search for a preset");
+        searchInput.setOnAction(e -> {
+            String input = searchInput.getText();
+            LinkedList<String> searchOut;
+            if (input.isEmpty()) {
+                searchOut = presets;
+            } else {
+                searchOut = search(searchInput.getText().toLowerCase());
+                if (searchOut.size() == 0) {
+                    searchOut.add("No presets match your search");
+                }
+            }
+            presetsList.setItems(FXCollections.observableArrayList(searchOut));
+        });
+
+        column.getChildren().addAll(img, title, instructions, playground, or, preset, searchInput, presetsList);
         startPane.getChildren().add(column);
         mainPane.setCenter(startPane);
         mainPane.setBottom(null);
+    }
+
+    public LinkedList<String> search(String q) {
+        return searchHelper(bst.root, q);
+    }
+
+    private LinkedList<String> searchHelper(BST<String>.BSTNode curr, String q) {
+        if (curr == null) {
+            return new LinkedList<>();
+        }
+        LinkedList<String> left = searchHelper(curr.left, q);
+        LinkedList<String> right = searchHelper(curr.right, q);
+        left.addAll(right);
+        if (curr.value.toLowerCase().contains(q)) {
+            left.add(curr.value);
+        }
+        return left;
     }
 
     public void startGame(String preset) {
