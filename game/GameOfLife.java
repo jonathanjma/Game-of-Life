@@ -1,3 +1,5 @@
+package game;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,20 +38,8 @@ public class GameOfLife extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        presets = new LinkedList<>(Arrays.asList("Gosper Glider Gun", "R-Pentomino", "Basic Life", "Gliders- Life", "Acorn- Basic", "Spider- Glider", "Copperhead- Glider", "Tanner P46", "Simkin Glider Gun", "Snark", "Two Engine Cordership"));
-
-        // insertion sort
-        for (int i = 1; i < presets.size(); i++) {
-            String curString = presets.get(i);
-            for (int j = i-1; j >= 0; j--) {
-                String jString = presets.get(j);
-                if ((j == 0 || curString.compareTo(presets.get(j-1)) > 0) && curString.compareTo(jString) < 0) {
-                    presets.remove(i);
-                    presets.add(j, curString);
-                    break;
-                }
-            }
-        }
+        presets = new LinkedList<>(Arrays.asList("Gosper Glider Gun", "R-Pentomino (Explosive)", "Basic Life", "Gliders", "Acorn (Explosive)", "Spider (Glider)", "Copperhead (Glider)", "Tanner P46", "Simkin Glider Gun", "Snark", "Two Engine Cordership (Glider)"));
+        presets = insertionSort(presets);
 
         bst = new BST<>();
         for (String str : presets) {
@@ -126,11 +116,12 @@ public class GameOfLife extends Application {
             if (input.isEmpty()) {
                 searchOut = presets;
             } else {
-                searchOut = search(searchInput.getText().toLowerCase());
+                searchOut = search(bst, searchInput.getText().toLowerCase());
                 if (searchOut.size() == 0) {
                     searchOut.add("No presets match your search");
                 }
             }
+            searchOut = insertionSort(searchOut);
             presetsList.setItems(FXCollections.observableArrayList(searchOut));
         });
 
@@ -140,7 +131,7 @@ public class GameOfLife extends Application {
         mainPane.setBottom(null);
     }
 
-    public LinkedList<String> search(String q) {
+    public LinkedList<String> search(BST<String> bst, String q) {
         return searchHelper(bst.root, q);
     }
 
@@ -155,6 +146,21 @@ public class GameOfLife extends Application {
             left.add(curr.value);
         }
         return left;
+    }
+
+    public LinkedList<String> insertionSort(LinkedList<String> inList) {
+        for (int i = 1; i < inList.size(); i++) {
+            String curString = inList.get(i);
+            for (int j = i-1; j >= 0; j--) {
+                String jString = inList.get(j);
+                if ((j == 0 || curString.compareTo(inList.get(j-1)) > 0) && curString.compareTo(jString) < 0) {
+                    inList.remove(i);
+                    inList.add(j, curString);
+                    break;
+                }
+            }
+        }
+        return inList;
     }
 
     public void startGame(String preset) {
@@ -210,8 +216,4 @@ public class GameOfLife extends Application {
         mainPane.setCenter(boardPane);
         mainPane.setBottom(infoBox);
     }
-
-//    public LinkedList<String> insertionSort(LinkedList<String> inList) {
-//
-//    }
 }
